@@ -1,0 +1,392 @@
+:root {
+  --primary: #ff4d7a;
+  --secondary: #6b5b95;
+  --accent: #61dafb;
+  --dark: #101623;
+  --light: #f8f9fa;
+  --card-bg: #1a2238;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--dark);
+  color: white;
+  background-image: radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 77, 122, 0.15) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(107, 91, 149, 0.15) 0%,
+      transparent 20%
+    );
+  min-height: 100vh;
+}
+
+/* Manga Panel Effect */
+.manga-panel {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 29px,
+    rgba(255, 255, 255, 0.05) 29px,
+    rgba(255, 255, 255, 0.05) 30px
+  );
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Container Styles */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  gap: 2rem;
+  position: relative;
+}
+
+/* Manga Cover Styles */
+.manga-cover {
+  position: relative;
+  width: 300px;
+  height: 450px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 0 5px var(--primary),
+    0 0 0 8px var(--secondary), 0 0 0 11px var(--dark);
+  transition: transform 0.3s;
+  z-index: 1;
+}
+
+.manga-cover:hover {
+  transform: translateY(-5px) rotate(1deg);
+}
+
+.manga-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.manga-cover:hover img {
+  transform: scale(1.05);
+}
+
+.manga-cover:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.manga-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--primary);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 2;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Manga Details Styles */
+.manga-details {
+  flex: 1;
+  min-width: 300px;
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.manga-details:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  filter: blur(30px);
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.manga-details:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  filter: blur(40px);
+  opacity: 0.2;
+  z-index: 0;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+  font-family: "Mochiy Pop One", sans-serif;
+}
+
+.title:after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.info-tag {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.info-tag i {
+  margin-right: 8px;
+  color: var(--accent);
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+}
+
+.read-btn,
+.follow-btn {
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  border: none;
+  font-size: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.read-btn {
+  background: linear-gradient(45deg, var(--primary), #ff85a2);
+  color: white;
+  box-shadow: 0 5px 15px rgba(255, 77, 122, 0.4);
+}
+
+.follow-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 2px solid var(--accent);
+}
+
+.read-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 77, 122, 0.6);
+}
+
+.follow-btn:hover {
+  background-color: rgba(97, 218, 251, 0.1);
+}
+
+.read-btn i,
+.follow-btn i {
+  margin-right: 8px;
+}
+
+/* Description Section */
+.description,
+.more-info {
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent);
+  font-family: "Mochiy Pop One", sans-serif;
+  display: flex;
+  align-items: center;
+}
+
+.section-title:before {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 25px;
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.description p {
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* More Info Section */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.info-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 3px solid var(--accent);
+}
+
+.info-item strong {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.info-item p {
+  color: white;
+  font-size: 15px;
+}
+
+/* Manga Rating */
+.rating {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.stars {
+  color: #ffc107;
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-right: 10px;
+}
+
+.rating-text {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .manga-cover {
+    width: 250px;
+    height: 375px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Floating Elements Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.floating {
+  position: absolute;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.floating-1 {
+  top: 10%;
+  left: 5%;
+  font-size: 50px;
+  color: var(--primary);
+  animation-delay: 0s;
+}
+
+.floating-2 {
+  bottom: 15%;
+  right: 5%;
+  font-size: 40px;
+  color: var(--accent);
+  animation-delay: 1s;
+}
+
+.floating-3 {
+  top: 30%;
+  right: 10%;
+  font-size: 30px;
+  color: var(--secondary);
+  animation-delay: 2s;
+}

@@ -1,0 +1,236 @@
+:root {
+  --primary: #ff4d7a;
+  --secondary: #6b5b95;
+  --accent: #61dafb;
+  --dark: #101623;
+  --sidebar: #1a2238;
+  --card-bg: #1e293b;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-decoration: none;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--dark);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+:root {
+  --primary: #ff4d7a;
+  --secondary: #6b5b95;
+  --accent: #61dafb;
+  --dark: #101623;
+  --sidebar: #1a2238;
+  --card-bg: #1e293b;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--text-light);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-content {
+  margin-left: 280px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+
+.manga-table-container {
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-card-header h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-filter {
+  display: flex;
+  gap: 1rem;
+}
+
+.filter-select {
+  background-color: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.custom-table-responsive {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  padding: 20px 0;
+  border-collapse: collapse;
+}
+
+.custom-table th {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem;
+  text-align: left;
+}
+
+.custom-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+
+.custom-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.manga-cover {
+  width: 60px;
+  height: 80px;
+  border-radius: 5px;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+td.status {
+  display: block;
+  text-align: center;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status[data-status="ongoing"] {
+  background-color: rgba(97, 218, 251, 0.2);
+  color: var(--accent);
+}
+
+.status[data-status="completed"] {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+}
+
+.status[data-status="hiatus"] {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-edit {
+  background-color: rgba(97, 218, 251, 0.2);
+  color: var(--accent);
+}
+
+.btn-edit:hover {
+  background-color: rgba(97, 218, 251, 0.3);
+}
+
+.btn-delete {
+  background-color: rgba(255, 77, 122, 0.2);
+  color: var(--primary);
+}
+
+.btn-delete:hover {
+  background-color: rgba(255, 77, 122, 0.3);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 0.8rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .custom-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .search-filter {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}

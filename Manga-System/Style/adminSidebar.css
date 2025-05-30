@@ -1,0 +1,90 @@
+/* Sidebar Styles */
+:root {
+  --primary: #ff4d7a;
+  --secondary: #6b5b95;
+  --accent: #61dafb;
+  --dark: #101623;
+  --sidebar: #1a2238;
+  --card-bg: #1e293b;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+.sidebar {
+  width: 280px;
+  background-color: var(--sidebar);
+  padding: 1.5rem;
+  position: fixed;
+  height: 100vh;
+  transition: all 0.3s;
+  z-index: 100;
+  box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo img {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  font-family: "Mochiy Pop One", sans-serif;
+}
+
+.logo-text span {
+  color: var(--primary);
+}
+
+.nav-menu {
+  list-style: none;
+}
+
+.nav-title {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 1.5rem 0 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.nav-item {
+  margin-bottom: 0.3rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  color: var(--text-light);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--accent);
+}
+
+.nav-link.active {
+  background-color: rgba(255, 77, 122, 0.2);
+  color: var(--primary);
+}
+
+.nav-link i {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  width: 24px;
+  text-align: center;
+}
