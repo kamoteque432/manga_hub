@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+// If user is already logged in, redirect them away from login page
+if (isset($_SESSION['user_id'])) {
+    require_once '../Model/user.php';
+    $user = new User();
+    $user_data = $user->getUserById($_SESSION['user_id']);
+    
+    if ($user_data) {
+        $role = trim($user->getUserRole($user_data['email']));
+        if (strcasecmp($role, 'Admin') === 0) {
+            header("Location: adminDashboard.php");
+        } else {
+            header("Location: userInfo.php");
+        }
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

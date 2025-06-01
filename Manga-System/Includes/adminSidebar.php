@@ -1,3 +1,4 @@
+
 <!-- Sidebar Navigation -->
 <link rel="stylesheet" href="../Style/adminSidebar.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -47,7 +48,7 @@
             </a>
         </li> -->
         <li class="nav-item">
-            <a href="../index.php" class="nav-link">
+            <a href="../Controllers/logout.php" class="nav-link">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
             </a>

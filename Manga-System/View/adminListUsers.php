@@ -1,8 +1,31 @@
 <?php
+session_start();
 
-include "../Model/user.php";
+// Redirect to login if not authenticated
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../View/login.php");
+    exit();
+}
+
+// Verify user is admin
+require_once '../Model/user.php';
 $user = new User();
+$current_user = $user->getUserById($_SESSION['user_id']);
 
+if (!$current_user) {
+    unset($_SESSION['user_id']);
+    header("Location: ../View/login.php");
+    exit();
+}
+
+$role = trim($user->getUserRole($current_user['email']));
+if (strcasecmp($role, 'Admin') !== 0) {
+    header("Location: ../View/userInfo.php");
+    exit();
+}
+
+// Only proceed if authenticated admin
+$users = $user->getAllUsers();
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +34,7 @@ $user = new User();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manga List | Admin Dashboard</title>
+    <title>User List | Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <?php include "../Includes/href.php" ?>
@@ -26,7 +49,7 @@ $user = new User();
         <div class="manga-table-container">
             <div class="custom-card">
                 <div class="custom-card-header">
-                    <h4><i class="fas fa-book"></i> List of Users</h4>
+                    <h4><i class="fas fa-users"></i> List of Users</h4>
                 </div>
                 <div class="custom-card-body">
                     <div class="custom-table-responsive">
@@ -41,11 +64,12 @@ $user = new User();
                             </thead>
                             <tbody>
                                 <?php
-                                $users = $user->getAllUsers(); // Hypothetical method
-
                                 if ($users) {
                                     foreach ($users as $row) {
-                                        // Assuming your user model has a 'cover' field with image URL
+                                        // Skip admin users
+                                        if (strcasecmp(trim($row['role']), 'Admin') === 0) {
+                                            continue;
+                                        }
                                 ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($row["username"]); ?></td>
@@ -53,7 +77,7 @@ $user = new User();
                                             <td><?php echo htmlspecialchars($row['role']); ?></td>
                                             <td>
                                                 <div class="action-buttons">
-                                                    <a class="btn-delete" href="../Controllers/action_user.php?delete=<?php echo $row['user_id'] ?>">
+                                                    <a class="btn-delete" href="../Controllers/action_user.php?delete=<?php echo htmlspecialchars($row['user_id']); ?>" onclick="return confirm('Are you sure you want to delete this user?')">
                                                         <i class="fas fa-trash"></i> Delete
                                                     </a>
                                                 </div>
@@ -61,6 +85,8 @@ $user = new User();
                                         </tr>
                                 <?php
                                     }
+                                } else {
+                                    echo '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #888;">No non-admin users found.</td></tr>';
                                 }
                                 ?>
                             </tbody>
@@ -81,5 +107,4 @@ $user = new User();
         let table = new DataTable('#myTable');
     </script>
 </body>
-
 </html>

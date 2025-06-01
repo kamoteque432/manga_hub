@@ -1,14 +1,23 @@
 <?php
-
 session_start();
+
+// Redirect to login if not authenticated
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
 require_once '../Model/user.php';
 $user = new User();
 
-$user_login = null;
-if (isset($_SESSION['user_id'])) {
-    $user_login = $user->getUserById($_SESSION['user_id']);
-}
+$user_login = $user->getUserById($_SESSION['user_id']);
 
+// If user data not found, clear session and redirect
+if (!$user_login) {
+    unset($_SESSION['user_id']);
+    header("Location: login.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,12 +46,12 @@ if (isset($_SESSION['user_id'])) {
                 <h1 class="profile-name"><?php echo $user_login['email']; ?></h1>
                 <p class="profile-username">@<?php echo $user_login['username']; ?></p>
                 
-                <div class="profile-stats">
+                <!-- <div class="profile-stats">
                     <div class="stat-item">
                         <div class="stat-number">1,284</div>
                         <div class="stat-label">Favorites</div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- <button class="edit-profile-btn">
                 <i class="fas fa-user-edit"></i> 
@@ -50,11 +59,11 @@ if (isset($_SESSION['user_id'])) {
         </div>
 
         <!-- Profile Tabs -->
-        <div class="profile-tabs">
+        <!-- <div class="profile-tabs">
             <button class="tab-btn active">
                 <i class="fas fa-heart"></i> Favorites
             </button>
-        </div>
+        </div> -->
 
         <!-- Recently Read Section
         <div class="manga-grid">

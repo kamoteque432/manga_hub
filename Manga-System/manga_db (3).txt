@@ -1,0 +1,164 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 01, 2025 at 09:53 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `manga_db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_comics`
+--
+
+CREATE TABLE `tbl_comics` (
+  `comic_id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `origination` varchar(50) DEFAULT NULL,
+  `published_year` int(11) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `chapters` varchar(50) DEFAULT NULL,
+  `artists` varchar(255) DEFAULT NULL,
+  `genres` varchar(255) DEFAULT NULL,
+  `themes` varchar(255) DEFAULT NULL,
+  `format` varchar(255) DEFAULT NULL,
+  `publishers` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_comics`
+--
+
+INSERT INTO `tbl_comics` (`comic_id`, `title`, `cover`, `status`, `origination`, `published_year`, `description`, `chapters`, `artists`, `genres`, `themes`, `format`, `publishers`) VALUES
+(1, 'Veil of Oblivion', 'https://i.pinimg.com/736x/82/a6/76/82a6765f09979892cb6ff56867182521.jpg', 'Ongoing', 'Manga', 2023, 'In a future where memories are currency, the city of Luthar thrives behind neural firewalls that protect its citizens from \"The Forgotten\" — monstrous beings born from erased memories. When a memory thief named Kael uncovers a buried truth that could collapse reality itself, he’s forced to join a covert resistance of memory-smugglers known as “The Archive.”', '73+', 'Ren Takanashi (illustrator), Kyo Ayame (writer)', 'Action, Sci-Fi, Psychological Thriller', 'Memory, Identity, Rebellion, Reality vs Illusion', 'Serialized Manga', 'VoidVerse Publishing'),
+(2, 'The Lost Chronicles', 'https://m.media-amazon.com/images/I/A1msF+Z7q7L._SL1500_.jpg', 'Ongoing', 'Manga', 2023, 'An epic tale of adventure and mystery in a forgotten world.', '42+', 'Haruki Yamamoto, Sora Takahashi', 'Adventure, Fantasy, Mystery', 'Friendship, Courage, Destiny', 'Full Color', 'Shueisha, Kodansha'),
+(3, 'Shadow Blossom', 'https://files.mmopixel.com/tinymce/5badeb48-e6a3-4318-a151-35867b9a9277.png', 'Completed', 'Manhwa', 2020, 'A dark story of revenge and redemption in the shadows.', '100', 'Min Jae Lee', 'Action, Drama, Thriller', 'Revenge, Betrayal', 'Black & White', 'Naver, Daum'),
+(7, 'skibidi toilet ', 'https://th.bing.com/th/id/OIP.ocWJRj0Lfzhr0m4Hmw5-yQHaK0?rs=1&pid=ImgDetMain', 'Hiatus', 'Manhua', 2024, 'dsadsa', '', 'dsada', 'wdadwa', 'dwasd', 'wdas', 'wadsa'),
+(8, 'Tralalero Tralala', 'https://akamai.sscdn.co/uploadfile/letras/fotos/e/a/b/6/eab6d7fa9a9dcc563fb34c283f2e4515.jpg', 'Cancelled', 'Webtoon', 2004, 'wadsa', '2000', 'wadsa', 'Drama', 'Time', 'wads', 'wads'),
+(9, 'dwadsa', 'https://th.bing.com/th/id/OIP.kxye59ehZhVCsyce7rYn3gHaHa?rs=1&pid=ImgDetMain', 'Hiatus', 'Webtoon', 2000, 'dsawsadw', 'wadsadwa', 'dsawda', 'dwasdadwa', 'dwasa', 'dwasdawa', 'dsawad');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_favorites`
+--
+
+CREATE TABLE `tbl_favorites` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comic_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_favorites`
+--
+
+INSERT INTO `tbl_favorites` (`id`, `user_id`, `comic_id`, `created_at`) VALUES
+(18, 11, 3, '2025-05-29 09:47:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_users`
+--
+
+CREATE TABLE `tbl_users` (
+  `user_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_users`
+--
+
+INSERT INTO `tbl_users` (`user_id`, `email`, `username`, `password`, `role`, `created_at`) VALUES
+(7, 'jamesmatthew@gmail.com', 'skibidi', '$2y$10$7GaoHzMwgL8h9/kcMIfOqO7.B5h8kS8mH6TK8K5L565C2IZ/tDVwK', 'User', '2025-05-29 06:06:31'),
+(8, 'james123@gmail.com', 'james', '$2y$10$0FsCaJJppcPjFkKdX3zlm.mdJs1TsBQAoZm.aifg3LujIZJC.h76C', 'Admin', '2025-05-29 06:07:02'),
+(9, 'skbdi123@gmail.com', 'skbdi', '$2y$10$mr4UN8.NGHjEzrsIuU0mx.PdaQp5A1KSQZs6jnCatgae7HwnEqWrO', 'User', '2025-05-29 06:25:06'),
+(11, 'andrew@g', 'andrew', '$2y$10$9O0I7DnwEHdGLUcLe1zw5OLmGlqPpCMICulVT/exC5XbU2p8EyWXG', 'User', '2025-05-29 09:46:09'),
+(12, '123@g', 'james', '$2y$10$0z06eFmOiLyJNUSJ2Mk9X.U6dLpIk8RFLOi3kN.KIb68zNOknmgT.', 'User', '2025-06-01 05:30:40');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_comics`
+--
+ALTER TABLE `tbl_comics`
+  ADD PRIMARY KEY (`comic_id`);
+
+--
+-- Indexes for table `tbl_favorites`
+--
+ALTER TABLE `tbl_favorites`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`comic_id`),
+  ADD KEY `comic_id` (`comic_id`);
+
+--
+-- Indexes for table `tbl_users`
+--
+ALTER TABLE `tbl_users`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_comics`
+--
+ALTER TABLE `tbl_comics`
+  MODIFY `comic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_favorites`
+--
+ALTER TABLE `tbl_favorites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `tbl_users`
+--
+ALTER TABLE `tbl_users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_favorites`
+--
+ALTER TABLE `tbl_favorites`
+  ADD CONSTRAINT `tbl_favorites_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tbl_favorites_ibfk_2` FOREIGN KEY (`comic_id`) REFERENCES `tbl_comics` (`comic_id`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,6 +1,6 @@
 <?php
 
-include "Model/comic.php";
+include "./Model/comic.php";
 $comic = new Comic();
 
 ?>
@@ -18,7 +18,7 @@ $comic = new Comic();
 </head>
 
 <body>
-    <?php include "Includes/navbar.php" ?>
+    <?php include "./Includes/navbar.php" ?>
 
     <div class="speed-lines"></div>
 

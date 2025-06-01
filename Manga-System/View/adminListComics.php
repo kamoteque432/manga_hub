@@ -1,5 +1,31 @@
 <?php
 
+session_start();
+
+// Redirect to login if not authenticated
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../View/login.php");
+    exit();
+}
+
+// Verify user is admin
+require_once '../Model/user.php';
+$user = new User();
+$user_data = $user->getUserById($_SESSION['user_id']);
+
+if (!$user_data) {
+    unset($_SESSION['user_id']);
+    header("Location: ../View/login.php");
+    exit();
+}
+
+$role = trim($user->getUserRole($user_data['email']));
+if (strcasecmp($role, 'Admin') !== 0) {
+    header("Location: ../View/userInfo.php");
+    exit();
+}
+
+// Only proceed if authenticated admin
 include "../Model/comic.php";
 $comic = new Comic();
 
@@ -28,12 +54,7 @@ $comic = new Comic();
                 <div class="custom-card-header">
                     <h4><i class="fas fa-book"></i> List of Mangas</h4>
                     <div class="search-filter">
-                        <select class="filter-select">
-                            <option>All Status</option>
-                            <option>Ongoing</option>
-                            <option>Completed</option>
-                            <option>Hiatus</option>
-                        </select>
+                        
                     </div>
                 </div>
                 <div class="custom-card-body">
@@ -110,7 +131,10 @@ $comic = new Comic();
 
     <script>
         let table = new DataTable('#myTable');
+        
     </script>
+    
 </body>
+
 
 </html>

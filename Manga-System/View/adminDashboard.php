@@ -1,21 +1,35 @@
 <?php
 
 session_start();
+
+// Redirect to login if not authenticated or not admin
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../View/login.php");
+    exit();
+}
+
 require_once '../Model/user.php';
 require_once '../Model/comic.php';
 $user = new User();
 $comic = new Comic();
 
-$user_login = null;
-if (isset($_SESSION['user_id'])) {
-    $user_login = $user->getUserById($_SESSION['user_id']);
+// Get user data and verify role
+$user_login = $user->getUserById($_SESSION['user_id']);
+if (!$user_login) {
+    unset($_SESSION['user_id']);
+    header("Location: ../View/login.php");
+    exit();
+}
 
-
+// Check if user is admin
+$role = trim($user->getUserRole($user_login['email']));
+if (strcasecmp($role, 'Admin') !== 0) {
+    header("Location: ../View/userInfo.php");
+    exit();
 }
 
 $totalUsers = $user->getUserCount();
-$totalBooks = $comic->getBookCount();
-
+$totalBooks = $comic->getTotalComicsCount();
 
 ?>
 <!DOCTYPE html>

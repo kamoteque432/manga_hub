@@ -119,5 +119,20 @@ public function getUserCount() {
 
     return 0; // Return 0 if no users or error
 }
+
+
+    public function getUserEmailById($user_id) {
+    $sql = "SELECT email FROM users WHERE user_id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['email'];
+    }
+    return null;
+}
 }
 

@@ -39,11 +39,11 @@ $user_id = $_SESSION['user_id'] ?? null;
     <?php endif; ?>
     </ul>
 
-    <div class="nav-actions">
+    <!-- <div class="nav-actions">
     <div class="nav-search-box">
         <i class="fas fa-search"></i>
         <input type="text" placeholder="Search manga...">
-    </div>
+    </div> -->
 
     <?php if ($user_id): ?>
         <div class="user-actions">
