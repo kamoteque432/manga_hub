@@ -33,43 +33,35 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             exit();
         }
     } else if (isset($_POST['edit'])) {
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
+        $username = $_POST['username'];
         $email = $_POST['email'];
-        $oldPassword = $_POST['oldPassword'];
         $password = $_POST['password'];
         $confirmPassword = $_POST['confirmPassword'];
+        $role = $_POST['role'];
         $user_id = $_POST['user_id'];
 
         $existingUser = $user->getUserById($user_id);
 
         if (!$existingUser) {
-            header("Location: ../View/AdminAddUser.php?edit=$user_id&error=userNotFound");
-            exit();
-        }
-
-        $storedHashedPassword = $existingUser['password'];
-
-        if (!password_verify($oldPassword, $storedHashedPassword)) {
-            header("Location: ../View/AdminAddUser.php?edit=$user_id&error=invalidOldPassword");
+            header("Location: ../View/adminEditUser.php?edit=$user_id&error=userNotFound");
             exit();
         }
 
         if ($user->isEmailTaken($email) && $email !== $existingUser['email']) {
-            header("Location: ../View/AdminAddUser.php?edit=$user_id&error=emailUsed");
+            header("Location: ../View/adminEditUser.php?edit=$user_id&error=emailUsed");
             exit();
         }
 
         if ($password !== $confirmPassword) {
-            header("Location: ../View/AdminAddUser.php?edit=$user_id&error=passwordMismatch");
+            header("Location: ../View/adminEditUser.php?edit=$user_id&error=passwordMismatch");
             exit();
         }
 
 
-        $result_add = $user->editUser($user_id, $firstName, $lastName, $email, $password);
+        $result_add = $user->editUser($user_id, $username, $email, $password, $role);
 
         if ($result_add) {
-            header("location: ../View/AdminListOfUsers.php");
+            header("location: ../View/adminListUsers.php");
             exit();
         } else {
             echo "<script>alert('Failed to edit user');</script>";

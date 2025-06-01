@@ -1,31 +1,8 @@
 <?php
-session_start();
 
-// Redirect to login if not authenticated
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../View/login.php");
-    exit();
-}
-
-// Verify user is admin
-require_once '../Model/user.php';
+include "../Model/user.php";
 $user = new User();
-$current_user = $user->getUserById($_SESSION['user_id']);
 
-if (!$current_user) {
-    unset($_SESSION['user_id']);
-    header("Location: ../View/login.php");
-    exit();
-}
-
-$role = trim($user->getUserRole($current_user['email']));
-if (strcasecmp($role, 'Admin') !== 0) {
-    header("Location: ../View/userInfo.php");
-    exit();
-}
-
-// Only proceed if authenticated admin
-$users = $user->getAllUsers();
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +11,7 @@ $users = $user->getAllUsers();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User List | Admin Dashboard</title>
+    <title>Manga List | Admin Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <?php include "../Includes/href.php" ?>
@@ -49,7 +26,7 @@ $users = $user->getAllUsers();
         <div class="manga-table-container">
             <div class="custom-card">
                 <div class="custom-card-header">
-                    <h4><i class="fas fa-users"></i> List of Users</h4>
+                    <h4><i class="fas fa-book"></i> List of Users</h4>
                 </div>
                 <div class="custom-card-body">
                     <div class="custom-table-responsive">
@@ -64,12 +41,11 @@ $users = $user->getAllUsers();
                             </thead>
                             <tbody>
                                 <?php
+                                $users = $user->getAllUsers(); // Hypothetical method
+
                                 if ($users) {
                                     foreach ($users as $row) {
-                                        // Skip admin users
-                                        if (strcasecmp(trim($row['role']), 'Admin') === 0) {
-                                            continue;
-                                        }
+                                        // Assuming your user model has a 'cover' field with image URL
                                 ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($row["username"]); ?></td>
@@ -77,16 +53,17 @@ $users = $user->getAllUsers();
                                             <td><?php echo htmlspecialchars($row['role']); ?></td>
                                             <td>
                                                 <div class="action-buttons">
-                                                    <a class="btn-delete" href="../Controllers/action_user.php?delete=<?php echo htmlspecialchars($row['user_id']); ?>" onclick="return confirm('Are you sure you want to delete this user?')">
+                                                    <a class="btn-delete" href="../Controllers/action_user.php?delete=<?php echo $row['user_id'] ?>">
                                                         <i class="fas fa-trash"></i> Delete
+                                                    </a>
+                                                    <a href="adminEditUser.php?edit=<?php echo $row['user_id'] ?>" class="btn-edit">
+                                                        <i class="fas fa-edit"></i> Edit
                                                     </a>
                                                 </div>
                                             </td>
                                         </tr>
                                 <?php
                                     }
-                                } else {
-                                    echo '<tr><td colspan="4" style="text-align: center; padding: 20px; color: #888;">No non-admin users found.</td></tr>';
                                 }
                                 ?>
                             </tbody>
@@ -107,4 +84,5 @@ $users = $user->getAllUsers();
         let table = new DataTable('#myTable');
     </script>
 </body>
+
 </html>
